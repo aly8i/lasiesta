@@ -1,10 +1,9 @@
-import React, { useState,useRef } from 'react';
+import React, { useState,useRef,useEffect } from 'react';
 import QRCode from 'qrcode.react';
 import TextField from '@mui/material/TextField';
 import styles from "../../styles/adminQR.module.css";
-import { useEffect } from 'react';
 import ReactToPrint from 'react-to-print'
-const qrcodes = () => {
+const QRcodes = () => {
     const printRef = useRef();
     const [code, setCode] = useState('');
     const [table, setTable] = useState('');
@@ -42,4 +41,4 @@ const qrcodes = () => {
     );
 }
 
-export default qrcodes
+export default QRcodes
