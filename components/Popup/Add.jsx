@@ -2,7 +2,7 @@ import styles from "../../styles/Add.module.css";
 import { useState } from "react";
 import axios from "axios";
 import {storage} from "../../Firebase";
-import {getDownloadURL, ref, uploadBytesResumable} from "@firebase/storage";
+import {getDownloadURL, ref, uploadBytesResumable} from "firebase/storage";
 import Progress from "../Progress";
 const Add = ({closeit}) => {
       const [file, setFile] = useState(null);

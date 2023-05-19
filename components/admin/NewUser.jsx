@@ -9,7 +9,7 @@ import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import {storage} from "../../Firebase";
 import axios from 'axios';
-import {getDownloadURL, ref, uploadBytesResumable} from "@firebase/storage";
+import {getDownloadURL, ref, uploadBytesResumable} from "firebase/storage";
 import Progress from "../Progress";
 const NewUser = () => {
   const [file, setFile] = useState(null);

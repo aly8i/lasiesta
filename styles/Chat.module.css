@@ -116,7 +116,7 @@ and (max-width: 382px){
     font-size: 18px;
 }
 .closeIcon{
-    color:purple;
+    color: var(--fourth-color);
     font-size: 18px;
 }
 .sentAnchor{
@@ -127,7 +127,7 @@ and (max-width: 382px){
     width: 30px;
     height: 50px;
     clip-path: polygon(0 0, 100% 0, 50% 50%);
-    background-color: purple;
+    background-color: var(--first-color-s);
     z-index: -12;
 }
 .recievedAnchor{
@@ -138,14 +138,14 @@ and (max-width: 382px){
     width: 30px;
     height: 50px;
     clip-path: polygon(0 0, 100% 0, 50% 50%);
-    background-color: yellow;
+    background-color: var(--);
     z-index: -12;
 }
 .send{
     align-items: center;
     justify-content: center;
     padding: 5px;
-    background-color: purple;
+    background-color: var(--first-color-s);
     border-radius: 50%;
     min-width: 40px;
     height: 40px;
@@ -172,7 +172,7 @@ and (max-width: 382px){
     gap:10px;
     padding: 10px;
     border-radius: 12px;
-    background-color: purple;
+    background-color: var(--first-color-s);
     color: white;
     display: flex;
     flex-direction: row;
@@ -185,8 +185,8 @@ and (max-width: 382px){
     gap:10px;
     border-radius: 12px;
     padding: 10px;
-    background-color: yellow;
-    color:purple;
+    background-color: var(--fourth-color);
+    color: var(--second-color);
     display: flex;
     flex-direction: row;
     justify-content: space-between;

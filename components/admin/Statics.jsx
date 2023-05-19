@@ -6,7 +6,7 @@ import TextField from '@mui/material/TextField';
 import { useRouter } from "next/router";
 import {storage} from "../../Firebase";
 import axios from 'axios';
-import {getDownloadURL, ref, uploadBytesResumable} from "@firebase/storage";
+import {getDownloadURL, ref, uploadBytesResumable} from "firebase/storage";
 import Progress from "../Progress";
 import CancelIcon from '@mui/icons-material/Cancel';
 import { motion } from "framer-motion";
@@ -85,13 +85,13 @@ const Statics = ({data,token}) => {
     );
     const postData = async (pay) => {
       setLoading(true);
-      const res1={}
+      var res1={}
     try{
       const res11 = await server.put("api/static/", pay);
       res1=res11;
   }catch(err){
     console.log(err)
-      router.push("/");
+      // router.push("/");
   }
     return res1;
   }
@@ -160,6 +160,7 @@ const Statics = ({data,token}) => {
                 if(res=='finished'|| res=='skipped2'){
                   if(cs1==true&&cs2==true){
                     const payload = {name,description,slider1:s1,slider2:s2,location,phonenumber1,phonenumber2,facebook,whatsapp,twitter,gmail,instagram,github,linkedin,mapLocation:{lat:parseFloat(lat),lng:parseFloat(lng)},deliveryChargePerKm};
+
                     try{
                       postData(payload);
                       setLoading(false);

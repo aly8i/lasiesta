@@ -5,7 +5,7 @@ import { useState } from "react";
 import TextField from '@mui/material/TextField';
 import {storage} from "../../Firebase";
 import axios from 'axios';
-import {getDownloadURL, ref, uploadBytesResumable} from "@firebase/storage";
+import {getDownloadURL, ref, uploadBytesResumable} from "firebase/storage";
 import Progress from "../Progress";
 import { useRouter } from "next/router";
 import Select from '@mui/material/Select';
@@ -118,7 +118,7 @@ const NewProduct = ({token}) => {
     function uploadFiles (file){
       if(!file) return;
       return new Promise(resolve =>{
-        const storageRef = ref(storage, `/pizzas/${file.name}`);
+        const storageRef = ref(storage, `/lasiesta/${file.name}`);
         const uploadTask = uploadBytesResumable(storageRef, file);
         uploadTask.on("state_changed",(snapshot) =>{
           const prog = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) *100);

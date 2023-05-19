@@ -1,12 +1,19 @@
 import axios from "axios";
 import Head from "next/head";
-import Featured from "../components/Featured";
-import PizzaWrapper from "../components/PizzaWrapper";
-import styles from "../styles/Home.module.css";
-import Arrow from "../components/Arrow";
-import { useRouter } from 'next/router';
+import Featured from "../../components/Featured";
+import PizzaWrapper from "../../components/PizzaWrapper";
+import styles from "../../styles/Home.module.css";
+import Arrow from "../../components/Arrow";
+import { useDispatch } from "react-redux";
+import { addID } from "../../components/redux/tableSlice";
+import { useEffect } from "react";
 
-export default function Home({ pizzaList }) {
+export default function Home({ pizzaList,table }) {
+  const dispatch = useDispatch();
+  useEffect(()=>{
+    console.log(table);
+    dispatch(addID({id:table}));
+  },[])
   return (
     <div className={styles.container}>
       <Head>
@@ -30,6 +37,7 @@ export const getServerSideProps = async ({ params }) => {
   return {
     props: {
       pizzaList: products,
+      table:params.id,
     },
   };
   

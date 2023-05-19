@@ -1,6 +1,5 @@
 import Image from "next/image";
 import styles from "../styles/Navbar.module.css";
-import { useSelector } from "react-redux";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import PhoneIcon from '@mui/icons-material/Phone';
 import Link from "next/link";
@@ -8,7 +7,7 @@ import Tada from 'react-reveal/Tada'
 import { motion } from "framer-motion";
 import NavMenu from "./NavMenu";
 import { signOut} from "next-auth/react"
-import { useDispatch } from "react-redux";
+import { useDispatch,useSelector } from "react-redux";
 import { addSocial,addID,resetUser } from "../components/redux/userSlice";
 import { useSession } from "next-auth/react"
 import axios from 'axios';
@@ -84,7 +83,7 @@ const Navbar = () => {
     <div className={styles.container}>
       <div className={styles.item}>
         <div className={styles.imagewrapper}>
-          <Image src="/img/happylogo.png" alt=""  width={100} height={70}/>
+          <Image src="/img/laslogo.png" alt=""  width={100} height={70}/>
         </div>
       </div>
       <div className={styles.item}>

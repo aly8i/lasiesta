@@ -11,6 +11,7 @@ const userSlice = createSlice({
     address: null,
     location: null,
     token: null,
+    table: null,
   },
   reducers: {
     addID: (state, action) => {
@@ -45,9 +46,13 @@ const userSlice = createSlice({
       state.address = null;
       state.location = null;
       state.token = null;
+      state.table = null;
+    },
+    addTable: (state,action) => {
+      state.table = action.payload.table;
     },
   },
 });
 
-export const { addSocial, addDetails,addToken,addPhone, addID, resetUser } = userSlice.actions;
+export const { addSocial,addTable,addDetails,addToken,addPhone, addID, resetUser } = userSlice.actions;
 export default userSlice.reducer;

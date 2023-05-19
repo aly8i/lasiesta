@@ -6,7 +6,7 @@ import TextField from '@mui/material/TextField';
 import { useRouter } from "next/router";
 import {storage} from "../../Firebase";
 import axios from 'axios';
-import {getDownloadURL, ref, uploadBytesResumable} from "@firebase/storage";
+import {getDownloadURL, ref, uploadBytesResumable} from "firebase/storage";
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';

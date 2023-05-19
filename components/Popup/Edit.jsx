@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import {storage} from "../../Firebase";
-import {getDownloadURL, ref, uploadBytesResumable} from "@firebase/storage";
+import {getDownloadURL, ref, uploadBytesResumable} from "firebase/storage";
 import styles from "../../styles/Add.module.css";
 import "../../public/img/pizza.png";
 import Progress from "../Progress";

@@ -126,7 +126,7 @@ function Bottom() {
   </section>
   <div className={`${styles.copyright} text-center p-4`}>
     <p>Powered By</p>
-    <a className="text-reset fw-bold" href="https://lebanontoken.web.app/">
+    <a className="text-reset fw-bold" href="https://lebanontoken.vercel.app/">
       <Image className={styles.logo} src={lt} alt="Lebanon Token" width={150} height={95}/>
     </a>
   </div>

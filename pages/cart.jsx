@@ -7,16 +7,27 @@ const Cart = dynamic(
   () => import('../components/Cart'),
   {ssr: false}
 )
+const TableCart = dynamic(
+  () => import('../components/TableCart'),
+  {ssr: false}
+)
 const Cartt = ({mapLocation,deliveryChargePerKm}) => {
   const router = useRouter();
   const user = useSelector((state) => state.user);
+  const table = useSelector((state) => state.table);
   useEffect(()=>{
     if(user.username=='Guest'){
       router.push('/socialogin');
     }
+    console.log(table)
   },[])
   return (
-    <Cart mapLocation={mapLocation} deliveryChargePerKm={deliveryChargePerKm}/>
+    <>
+      {table.id?
+        <TableCart mapLocation={mapLocation} deliveryChargePerKm={deliveryChargePerKm}/>
+        :<Cart mapLocation={mapLocation} deliveryChargePerKm={deliveryChargePerKm}/>
+      }
+    </>
   )
 }
 

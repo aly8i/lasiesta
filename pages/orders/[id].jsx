@@ -4,7 +4,7 @@ import axios from "axios";
 import { useEffect,useState,useRef } from "react";
 import ReactToPrint from 'react-to-print'
 const Order = ({ order }) => {
-  const [status,setStatus] = useState(order.status);
+  const [status,setStatus] = useState(order.status||0);
   const printRef = useRef();
   const statusClass = (index) => {
     if (index - status < 1) return styles.done;

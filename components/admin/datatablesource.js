@@ -189,3 +189,72 @@ export const orderColumns = [
   },
 ];
 
+export const tableColumns = [
+  { field: "_id", headerName: "ID", width: 70,
+  renderCell: (params) => {
+    return (
+      <Tooltip title={params.row._id} placement="bottom">
+        <div className={styles.id}>{params.row._id.substring(0,5)+"..."}</div>
+      </Tooltip>       
+      );
+  }, },
+  {
+    field: "name",
+    headerName: "Customer Name",
+    width: 130,
+  },
+  {
+    field: "phoneNumber",
+    headerName: "Tel",
+    width: 110,
+  },
+  {
+    field: "total",
+    headerName: "Total",
+    width: 70,
+  },
+  {
+    field: "createdAt",
+    headerName: "Date",
+    width: 170,
+    renderCell: (params) => {
+      return (
+        <>
+            <div className={`${styles.cellWithStatus} ${styles.active}`}>{params.row.createdAt.split('T')[0]}</div>
+            <div className={`${styles.cellWithStatus} ${styles.passive}`}>{params.row.createdAt.split('T')[1].split('.')[0]}</div>
+        </>
+        );
+    },
+  },
+  {
+    field: "status",
+    headerName: "Status",
+    width: 100,
+    renderCell: (params) => {
+          if(params.row.status==0){
+            return <div className={`${styles.cellWithStatus} ${styles.active}`}>Pending</div>;
+          }else if(params.row.status==1){
+            return <div className={`${styles.cellWithStatus} ${styles.passive}`}>On the way</div>;
+          }else if(params.row.status==2){
+            return <div className={`${styles.cellWithStatus} ${styles.pending}`}>Delivered</div>;
+          }
+        }
+  },
+  {
+    field: "products",
+    headerName: "Products",
+    width: 3000,
+    renderCell: (params) => {
+      return (
+        <div className={styles.cellWithImg}>
+          {params.row.products.map((p,i)=>(
+            p.extras[0]?
+            (<><img className={styles.cellImg} src={p.product?.img} alt="avatar" />{`${p.amount}`}{p.product?.measurment=='kg'?" (kg)":` (${p.size})`} {`${p.product?.title} with ${p.extras[0]}`}&nbsp;&nbsp;&nbsp;</>):
+            (<><img className={styles.cellImg} src={p.product?.img} alt="avatar" />{`${p.amount}`}{p.product?.measurment=='kg'?" (kg)":` (${p.size})`} {`${p.product?.title}`}&nbsp;&nbsp;&nbsp;</>)))}
+        </div>
+        );
+    },
+  },
+];
+
+

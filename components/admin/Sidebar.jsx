@@ -7,8 +7,8 @@ import StoreIcon from "@mui/icons-material/Store";
 import InsertChartIcon from "@mui/icons-material/InsertChart";
 import SettingsApplicationsIcon from "@mui/icons-material/SettingsApplications";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
-// import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
-import SettingsSystemDaydreamOutlinedIcon from "@mui/icons-material/SettingsSystemDaydreamOutlined";
+import TableRestaurantIcon from '@mui/icons-material/TableRestaurant';
+import QrCode2Icon from '@mui/icons-material/QrCode2';
 import PsychologyOutlinedIcon from "@mui/icons-material/PsychologyOutlined";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
@@ -47,6 +47,12 @@ const Sidebar = () => {
                 <CreditCardIcon className={styles.icon} />
                 <span>Orders</span>
               </li>
+            </Link>
+            <Link href="/admin/tables" passHref>
+              <li>
+                <TableRestaurantIcon className={styles.icon} />
+                <span>Tables</span>
+              </li>
           </Link>
           <Link href="/admin/delivery" passHref>
             <li>
@@ -68,10 +74,12 @@ const Sidebar = () => {
             </li>
           </Link>
           <p className={styles.title}>SERVICE</p>
-          <li>
-            <SettingsSystemDaydreamOutlinedIcon className={styles.icon} />
-            <span>System Health</span>
-          </li>
+          <Link href="/admin/qrcodes" passHref>
+            <li>
+              <QrCode2Icon className={styles.icon} />
+              <span>Tables QR Codes</span>
+            </li>
+          </Link>
           <li>
             <PsychologyOutlinedIcon className={styles.icon} />
             <span>Logs</span>
