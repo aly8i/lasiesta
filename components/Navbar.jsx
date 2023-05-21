@@ -57,7 +57,7 @@ const Navbar = () => {
         dispatch(addSocial({img:res.data.img,username:res.data.username,fullname:res.data.username}));
     }).catch(async (err)=>{
     if(session){
-        await postUser(session.user).then((data)=>{
+        await postUser(session.user).then(async (data)=>{
           dispatch(addSocial({img:session.user.image,username:session.user.name,fullname:session.user.name}));
           dispatch(addID({id:data._id,address:data.address,phonenumber:data.phonenumber}));
         })
