@@ -55,9 +55,9 @@ const Navbar = () => {
     }).then((res)=>{
         dispatch(addID({id:data._id,address:data.address,phonenumber:data.phonenumber}));
         dispatch(addSocial({img:res.data.img,username:res.data.username,fullname:res.data.username}));
-    }).catch((err)=>{
+    }).catch(async (err)=>{
     if(session){
-        postUser(session.user).then((data)=>{
+        await postUser(session.user).then((data)=>{
           dispatch(addSocial({img:session.user.image,username:session.user.name,fullname:session.user.name}));
           dispatch(addID({id:data._id,address:data.address,phonenumber:data.phonenumber}));
         })
