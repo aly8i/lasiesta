@@ -1,7 +1,7 @@
-import { deleteCookie } from "cookies-next";
+import { setCookie } from "cookies-next";
 const handler = async(req, res) => {
 
-  deleteCookie('accessToken',{req,res,path:'/',secure:true,sameSite:"strict"});
+  setCookie('accessToken',"",{req,res,path:'/',maxAge:0,secure:true,sameSite:"strict"});
     res.status(200).json("logged out");
 }
 export default handler;
