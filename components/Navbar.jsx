@@ -30,6 +30,7 @@ const Navbar = () => {
   };
 
   const postUser = async(u)=>{
+    console.log("posting");
     const newuser={
       googleID:u.email,
       username:u.name,
@@ -58,10 +59,11 @@ const Navbar = () => {
     }
   }
   const loginWithToken = async() => {
+    console.log("logging");
     await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/api/signinwithtoken`,{},{
       withCredentials: true
     }).then((res)=>{
-      console.log("4")
+      console.log("4");
         dispatch(addID({id:data._id,address:data.address,phonenumber:data.phonenumber}));
         dispatch(addSocial({img:res.data.img,username:res.data.username,fullname:res.data.username}));
     }).catch(async (err)=>{
