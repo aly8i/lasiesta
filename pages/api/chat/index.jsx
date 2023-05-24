@@ -10,13 +10,12 @@ export default async function handler (req, res){
 
   if (method === "GET") {
     try {
-        const chat = await Chat.find()
+        await Chat.find()
         .populate('userID')
         .exec()
         .then(docs=>{
             res.status(200).json(docs);
         });
-        res.status(200).json(chat);
     } catch (err) {
         res.status(500).json(err);
     }
