@@ -42,16 +42,18 @@ const Navbar = () => {
     try {
       console.log("1");
       const res = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/api/users`, {jwt});
-      const access = await generateAccessToken(res.data);
-      setCookie('accessToken',access);
+      const payload = {sub:res.data._id , img:res.data.img , username:res.data.username , role:res.data.role};
+      const jwt = sign(payload,process.env.NEXT_PUBLIC_JWT_SECRET,{expiresIn: '1d'});
+      setCookie('accessToken',jwt);
         return res.data;
     }catch(err){
       console.log("You have an account");
       try{
         console.log("2");
         const res = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/api/users/find`, {jwt});
-        const access = await generateAccessToken(res.data);
-        setCookie('accessToken',access);
+        const payload = {sub:res.data._id , img:res.data.img , username:res.data.username , role:res.data.role};
+        const jwt = sign(payload,process.env.NEXT_PUBLIC_JWT_SECRET,{expiresIn: '1d'});
+        setCookie('accessToken',jwt);
           return res.data;
       }
       catch(err){
