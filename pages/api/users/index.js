@@ -28,7 +28,7 @@ export default AuthorizedGet( async function handler(req, res) {
         img:decoded.img
       });
       const access = await generateAccessToken(user);
-      setCookie('accessToken',access,{req,res,maxAge: process.env.NEXT_PUBLIC_COOKIE_AGE,path:'/',httpOnly:true,sameSite:"strict"});
+      setCookie('accessToken',access,{req,res,maxAge: process.env.NEXT_PUBLIC_COOKIE_AGE,path:'/',httpOnly:true,secure:true,sameSite:"strict"});
       res.status(201).json(user);
     } catch (err) {
       res.status(500).json(err);
