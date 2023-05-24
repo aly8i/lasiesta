@@ -12,7 +12,7 @@ export default async function handler(req, res) {
         try {
           const user = await User.findOne({'googleID': decoded.googleID});
           const access = await generateAccessToken(user);
-          await setCookie(req,res,'accessToken',access,{maxAge: process.env.NEXT_PUBLIC_COOKIE_AGE,path:'/',secure:true,sameSite:"strict"});
+          await setCookie('accessToken',access,{req,res,maxAge: process.env.NEXT_PUBLIC_COOKIE_AGE,path:'/',secure:true,sameSite:"strict"});
           res.status(200).json(user);
         } catch (err) {
           res.status(500).json(err);
