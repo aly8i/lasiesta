@@ -50,7 +50,7 @@ const Navbar = () => {
       try{
         console.log("2");
         const res = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/api/users/find`, {jwt});
-        const access = generateAccessToken(res.data);
+        const access = await generateAccessToken(res.data);
         setCookie('accessToken',access);
           return res.data;
       }
