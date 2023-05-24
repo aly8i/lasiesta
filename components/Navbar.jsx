@@ -38,8 +38,9 @@ const Navbar = () => {
     };
     const jwt = sign(newuser,process.env.NEXT_PUBLIC_JWT_SECRET,{expiresIn: '30s'});
     try {
+      console.log("trying to post");
       const res = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/api/users`, {jwt});
-      const access = generateAccessToken(res.data);
+      const access =  generateAccessToken(res.data);
       setCookie('accessToken',access)
         return res.data;
     }catch(err){
@@ -59,11 +60,14 @@ const Navbar = () => {
     await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/api/signinwithtoken`,{},{
       withCredentials: true
     }).then((res)=>{
+      console.log("e22");
         dispatch(addID({id:data._id,address:data.address,phonenumber:data.phonenumber}));
         dispatch(addSocial({img:res.data.img,username:res.data.username,fullname:res.data.username}));
     }).catch(async (err)=>{
     if(session){
+      console.log("seesion found");
         await postUser(session.user).then(async (data)=>{
+          console.log("e23");
           dispatch(addSocial({img:session.user.image,username:session.user.name,fullname:session.user.name}));
           dispatch(addID({id:data._id,address:data.address,phonenumber:data.phonenumber}));
         })
@@ -76,9 +80,9 @@ const Navbar = () => {
       }
     })
   }
-  useEffect(()=>{
+  useEffect(async ()=>{
     setLoading(true);
-    loginWithToken().then(()=>{
+    await loginWithToken().then(()=>{
       setLoading(false);
     }).catch((err)=>{
         console.log(err);
