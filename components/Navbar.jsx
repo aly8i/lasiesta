@@ -15,6 +15,8 @@ import { useEffect } from "react";
 import {sign} from 'jsonwebtoken';
 import Pulse from "./Pulse";
 import { useState } from "react";
+import { setCookie } from 'cookies-next';
+import generateAccessToken from '../functions/generateAccessToken';
 const Navbar = () => {
   const { data: session } = useSession()
   const quantity = useSelector((state) => state.cart.quantity);
@@ -37,11 +39,15 @@ const Navbar = () => {
     const jwt = sign(newuser,process.env.NEXT_PUBLIC_JWT_SECRET,{expiresIn: '30s'});
     try {
       const res = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/api/users`, {jwt});
+      const access = generateAccessToken(res.data);
+      setCookie('accessToken',access)
         return res.data;
     }catch(err){
       console.log("You have an account");
       try{
         const res = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/api/users/find`, {jwt});
+        const access = generateAccessToken(res.data);
+        setCookie('accessToken',access);
           return res.data
       }
       catch(err){
