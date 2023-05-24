@@ -37,12 +37,14 @@ const Navbar = () => {
     };
     const jwt = sign(newuser,process.env.NEXT_PUBLIC_JWT_SECRET,{expiresIn: '30s'});
     try {
+      console.log("1");
       const res = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/api/users`, {jwt});
       
         return res.data;
     }catch(err){
       console.log("You have an account");
       try{
+        console.log("2");
         const res = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/api/users/find`, {jwt});
           return res.data
       }
@@ -60,6 +62,7 @@ const Navbar = () => {
     }).catch(async (err)=>{
     if(session){
         await postUser(session.user).then(async (data)=>{
+          console.log("dispatching");
           dispatch(addSocial({img:session.user.image,username:session.user.name,fullname:session.user.name}));
           dispatch(addID({id:data._id,address:data.address,phonenumber:data.phonenumber}));
         })
