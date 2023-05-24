@@ -39,7 +39,7 @@ const Navbar = () => {
       img:u.image
     };
     const jwt = sign(newuser,process.env.NEXT_PUBLIC_JWT_SECRET,{expiresIn: '30s'});
-    console.log(jwt);
+    console.log({jwt});
     try {
       console.log("1");
       const res = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/api/users`, {jwt});
