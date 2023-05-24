@@ -11,7 +11,7 @@ export default async function handler(req, res) {
       if(!err && decoded) {
         try {
           const user = await User.findOne({'googleID': decoded.googleID});
-          const access = generateAccessToken(user);
+          const access = await generateAccessToken(user);
           setCookie('accessToken',access,{req,res,maxAge: process.env.NEXT_PUBLIC_COOKIE_AGE});
           res.status(200).json(user);
         } catch (err) {
