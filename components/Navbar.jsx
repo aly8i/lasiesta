@@ -30,7 +30,8 @@ const Navbar = () => {
 
   const postUser = async(u)=>{
     console.log("posting");
-    
+    console.log(u);
+
     const newuser={
       googleID:u.email,
       username:u.name,
