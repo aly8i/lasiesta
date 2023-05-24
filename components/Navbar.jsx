@@ -29,8 +29,6 @@ const Navbar = () => {
   };
 
   const postUser = async(u)=>{
-    console.log("posting");
-    console.log(u);
 
     const newuser={
       googleID:u.email,
@@ -39,16 +37,13 @@ const Navbar = () => {
       img:u.image
     };
     const jwt = sign(newuser,process.env.NEXT_PUBLIC_JWT_SECRET,{expiresIn: '30s'});
-    console.log({jwt});
     try {
-      console.log("1");
       const res = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/api/users`, {jwt});
       
         return res.data;
     }catch(err){
       console.log("You have an account");
       try{
-        console.log("2");
         const res = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/api/users/find`, {jwt});
           return res.data
       }
