@@ -37,6 +37,7 @@ const Navbar = () => {
       fullname:u.name,
       img:u.image
     };
+    console.log(newuser);
     const jwt = sign(newuser,process.env.NEXT_PUBLIC_JWT_SECRET,{expiresIn: '30s'});
     try {
       console.log("1");
