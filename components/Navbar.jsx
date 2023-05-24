@@ -15,8 +15,7 @@ import { useEffect } from "react";
 import {sign} from 'jsonwebtoken';
 import Pulse from "./Pulse";
 import { useState } from "react";
-import { setCookie } from 'cookies-next';
-import generateAccessToken from '../functions/generateAccessToken';
+
 const Navbar = () => {
   const { data: session } = useSession()
   const quantity = useSelector((state) => state.cart.quantity);
@@ -30,31 +29,22 @@ const Navbar = () => {
   };
 
   const postUser = async(u)=>{
-    console.log("posting");
     const newuser={
       googleID:u.email,
       username:u.name,
       fullname:u.name,
       img:u.image
     };
-    console.log(newuser);
     const jwt = sign(newuser,process.env.NEXT_PUBLIC_JWT_SECRET,{expiresIn: '30s'});
     try {
-      console.log("1");
       const res = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/api/users`, {jwt});
-      const payload = {sub:res.data._id , img:res.data.img , username:res.data.username , role:res.data.role};
-      const jwt = sign(payload,process.env.NEXT_PUBLIC_JWT_SECRET,{expiresIn: '1d'});
-      setCookie('accessToken',jwt);
+      
         return res.data;
     }catch(err){
       console.log("You have an account");
       try{
-        console.log("2");
         const res = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/api/users/find`, {jwt});
-        const payload = {sub:res.data._id , img:res.data.img , username:res.data.username , role:res.data.role};
-        const jwt = sign(payload,process.env.NEXT_PUBLIC_JWT_SECRET,{expiresIn: '1d'});
-        setCookie('accessToken',jwt);
-          return res.data;
+          return res.data
       }
       catch(err){
         console.log("An error occured");
@@ -62,18 +52,14 @@ const Navbar = () => {
     }
   }
   const loginWithToken = async() => {
-    console.log("logging");
     await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/api/signinwithtoken`,{},{
       withCredentials: true
     }).then((res)=>{
-      console.log("4");
         dispatch(addID({id:data._id,address:data.address,phonenumber:data.phonenumber}));
         dispatch(addSocial({img:res.data.img,username:res.data.username,fullname:res.data.username}));
     }).catch(async (err)=>{
     if(session){
-        console.log("session available");
         await postUser(session.user).then(async (data)=>{
-          console.log("5");
           dispatch(addSocial({img:session.user.image,username:session.user.name,fullname:session.user.name}));
           dispatch(addID({id:data._id,address:data.address,phonenumber:data.phonenumber}));
         })
