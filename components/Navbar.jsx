@@ -88,7 +88,9 @@ const Navbar = () => {
     <div className={styles.container}>
       <div className={styles.item}>
         <div className={styles.imagewrapper}>
-          <Image src="/img/laslogo.png" alt=""  width={100} height={70}/>
+          <Link href="/" passHref>
+            <Image src="/img/laslogo.png" alt=""  width={100} height={70}/>
+          </Link>
         </div>
       </div>
       <div className={styles.item}>

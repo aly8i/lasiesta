@@ -164,7 +164,7 @@ const OrderDatatable = ({orders,deliverys,token}) => {
           <div className={styles.search}>
             <Search setSearched={setSearched} searched={searched}/>
           </div>
-          <Link href="/admin/orders/new" passHref >
+          <Link href="/" passHref >
             <span className={styles.link}>Add New</span>
           </Link>
         </div>

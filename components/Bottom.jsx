@@ -116,7 +116,7 @@ function Bottom() {
           <p><i className="fas fa-home me-3 text-grayish"></i> {data.location}</p>
           <p>
             <i className="fas fa-envelope me-3 text-grayish"></i>
-            hfc.web.app
+            {`${process.env.NEXT_PUBLIC_BASE_URL}`}
           </p>
           <p><i className="fas fa-phone me-3 text-grayish"></i>{data.phonenumber1}</p>
           <p><i className="fas fa-print me-3 text-grayish"></i>{data.phonenumber2}</p>
