@@ -9,9 +9,9 @@ export default function Home({ pizzaList }) {
   return (
     <div className={styles.container}>
       <Head>
-        <title>Resturantz</title>
-        <meta name="description" content="Best Food shop in town" />
-        <link rel="icon" href="/favicon.ico" />
+        <title>{process.env.NEXT_PUBLIC_NAME}</title>
+        <meta name="description" content={`${process.env.NEXT_PUBLIC_DESCRIPTION}`} />
+        <link rel="icon" href="/icon-hotel.png" />
       </Head>
       <Featured />
       <PizzaWrapper pizzaList={pizzaList} />
