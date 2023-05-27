@@ -5,7 +5,6 @@ import { motion } from "framer-motion";
 import Flip from 'react-reveal/Flip';
 
 const PizzaCard = ({ pizza,id }) => {
-  //for desc
   const shorten =(str) =>{
     var result;
     if(str.length>=79)
