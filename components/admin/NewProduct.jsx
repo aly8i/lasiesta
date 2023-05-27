@@ -24,6 +24,7 @@ const NewProduct = ({token}) => {
     const [measurment,setMeasurment]= useState("unit");
     const [priceperkg,setPriceperkg] = useState(null);
     const[loading,setLoading] = useState(false);
+    const categories = JSON.parse(process.env.NEXT_PUBLIC_CATEGORIES);
     const [category,setCategory]= useState("");
     const router = useRouter();
     const [error,setError] = useState(null);
@@ -63,6 +64,9 @@ const NewProduct = ({token}) => {
       return false;
     }else if(desc==""){
       setError("Please add a description.");
+      return false;
+    }else if(desc.length>=400){
+      setError("Please shorten your description.")
       return false;
     }else{
       if(measurment=="unit"){
@@ -195,11 +199,12 @@ const NewProduct = ({token}) => {
                       renderValue={(value) => `${value}`}
                       color="error"
                     >
-                      <MenuItem color="error" value={'pizza'}>pizza</MenuItem>
-                      <MenuItem color="error" value={'burger'}>burger</MenuItem>
-                      <MenuItem color="error" value={'dish'}>dish</MenuItem>
-                      <MenuItem color="error" value={'meal'}>meal</MenuItem>
-                      <MenuItem color="error" value={'drink'}>drink</MenuItem>
+                      {
+                        categories.map((cat)=>(
+                            <MenuItem color="error" value={cat}>{cat}</MenuItem>
+                          )
+                        )
+                      }
                   </Select>
               </FormControl>
               <div className={styles.priceInput}>

@@ -29,6 +29,7 @@ const EditProduct = ({product,token}) => {
     const [progress,setProgress]= useState(0);
     const[loading,setLoading] = useState(false);
     const [category,setCategory]= useState(product.category);
+    const categories = JSON.parse(process.env.NEXT_PUBLIC_CATEGORIES);
     const [measurment,setMeasurment]= useState(product.measurment||"unit");
     const [priceperkg,setPriceperkg] = useState(product.priceperkg||null);
     const router = useRouter();
@@ -69,6 +70,9 @@ const EditProduct = ({product,token}) => {
       return false;
     }else if(desc==""){
       setError("Please add a description.")
+      return false;
+    }else if(desc.length>=400){
+      setError("Please shorten your description.")
       return false;
     }else if(category==""){
       setError("Please add a category.")
@@ -236,11 +240,12 @@ const EditProduct = ({product,token}) => {
                       renderValue={(value) => `${value}`}
                       color="error"
                     >
-                      <MenuItem color="error" value={'pizza'}>pizza</MenuItem>
-                      <MenuItem color="error" value={'burger'}>burger</MenuItem>
-                      <MenuItem color="error" value={'dish'}>dish</MenuItem>
-                      <MenuItem color="error" value={'meal'}>meal</MenuItem>
-                      <MenuItem color="error" value={'drink'}>drink</MenuItem>
+                      {
+                        categories.map((cat)=>(
+                            <MenuItem color="error" value={cat}>{cat}</MenuItem>
+                          )
+                        )
+                      }
                     </Select>
                   </FormControl>
               <div className={styles.priceInput}>

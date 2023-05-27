@@ -20,7 +20,7 @@ const PizzaCard = ({ pizza,id }) => {
         <Image className={styles.image} src={pizza.img} alt={pizza.title} width="200" height="200" />
         <h1 className={styles.title}>{pizza.title}</h1>
         <div className={styles.price}>
-          <p className={styles.unit}>$</p><p>{pizza.measurment=="kg"?pizza.priceperkg:pizza.prices[0]==0?pizza.prices[1]==0?pizza.prices[2]:pizza.prices[1]:pizza.prices[0]}</p><p className={styles.unit}>{pizza.measurment=="kg"?" /kg":".00"}</p>
+          <p className={styles.unit}>$</p><p>{pizza.measurment=="kg"?pizza.priceperkg:pizza.prices[0]>0?pizza.prices[0]:pizza.prices[1]>0?pizza.prices[1]:pizza.prices[2]}</p><p className={styles.unit}>{pizza.measurment=="kg"?" /kg":".00"}</p>
         </div>
         <p className={styles.desc}>{shorten(pizza.desc)}</p>      
       </motion.div>
