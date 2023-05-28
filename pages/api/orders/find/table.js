@@ -18,7 +18,7 @@ export default async function handler(req, res) {
                 if(!err2 && decoded2) {
                     if(decoded.role=='admin' || decoded.sub==decoded2.customerID){
                         try {
-                            Order.find({"address":decoded2.address,"status":0})
+                            await Order.find({"address":decoded2.address,"status":0})
                               .populate('products.product')
                               .exec()
                               .then(async docs=>{

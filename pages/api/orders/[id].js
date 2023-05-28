@@ -13,7 +13,7 @@ export default AuthorizedOrder( async function handler(req, res) {
   if (method === "GET") {
 
     try {
-      Order.findById(id)
+      await Order.findById(id)
         .populate('products.product')
         .exec()
         .then(docs=>{

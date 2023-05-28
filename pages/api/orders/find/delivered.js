@@ -1,16 +1,17 @@
 import dbConnect from "../../../../util/mongo";
 import Order from "../../../../models/Order";
 import { getCookie } from 'cookies-next';
+import { verify } from "jsonwebtoken";
 export default async function handler(req, res) {
   const { method } = req;
-  const token = getCookie('accessToken', { req, res });
+  const token = req.headers.authorization;
   await dbConnect();
   if (method === "POST") {
     verify(token,process.env.NEXT_PUBLIC_JWT_SECRET,async function(err,decoded){
       if(!err && decoded) {
         if(decoded.role=='admin'){
             try {
-              Order.find({'deliveryID': req.body.deliveryID})
+              await Order.find({'deliveryID': req.body.deliveryID})
               .populate('products.product')
               .exec()
               .then(docs=>{

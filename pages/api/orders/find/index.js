@@ -6,7 +6,7 @@ export default async function handler(req, res) {
   await dbConnect();
   if (method === "POST") {
     try {
-      Order.find({'customerID': req.body.customerID})
+      await Order.find({'customerID': req.body.customerID})
         .populate('products.product')
         .exec()
         .then(docs=>{

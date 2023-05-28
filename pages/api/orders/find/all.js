@@ -9,7 +9,7 @@ export default Authorized(async function handler(req, res) {
 
   if (method === "GET") {
     try {
-      Order.find()
+      await Order.find()
         .populate('products.product')
         .exec()
         .then(docs=>{
