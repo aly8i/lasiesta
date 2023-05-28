@@ -11,7 +11,7 @@ const handler = async(req, res) => {
           
           const user = await User.create({username,phonenumber});
           const access = await generateAccessToken(user);
-          setCookie('accessToken',access,{req,res,maxAge: process.env.NEXT_PUBLIC_COOKIE_AGE,path:'/',httpOnly:true,secure:true,sameSite:"strict"});
+          await setCookie('accessToken',access,{req,res,maxAge: process.env.NEXT_PUBLIC_COOKIE_AGE,path:'/',httpOnly:true,secure:true,sameSite:"strict"});
           res.status(201).json(user);
     }
 };

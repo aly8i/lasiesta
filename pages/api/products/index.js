@@ -17,7 +17,7 @@ const handler = async(req, res) => {
 
   if (method === "POST") {
     const token = getCookie('accessToken', { req, res });
-    verify(token,process.env.NEXT_PUBLIC_JWT_SECRET,async function(err,decoded){
+    await verify(token,process.env.NEXT_PUBLIC_JWT_SECRET,async function(err,decoded){
       if(!err && decoded) {
         if(decoded.role=='admin'){
           try {

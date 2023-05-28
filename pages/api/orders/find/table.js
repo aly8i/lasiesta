@@ -10,11 +10,11 @@ export default async function handler(req, res) {
   const token = getCookie('accessToken', { req, res });
   await dbConnect();
   if (method === "POST") {
-    verify(token,process.env.NEXT_PUBLIC_JWT_SECRET,async function(err,decoded){
+    await verify(token,process.env.NEXT_PUBLIC_JWT_SECRET,async function(err,decoded){
       if(!err && decoded) {
         
 
-            verify(req.body.jwt,process.env.NEXT_PUBLIC_JWT_SECRET,async function(err2,decoded2){
+           await verify(req.body.jwt,process.env.NEXT_PUBLIC_JWT_SECRET,async function(err2,decoded2){
                 if(!err2 && decoded2) {
                     if(decoded.role=='admin' || decoded.sub==decoded2.customerID){
                         try {
@@ -32,8 +32,6 @@ export default async function handler(req, res) {
                                       }
                                 }else{
                                   const id = docs[0]._id.toString();
-                                  console.log(id);
-                                  console.log(status)
                                     try {
                                         const order2 = await Order.findByIdAndUpdate( id, { name:decoded2.name, total:decoded2.total,products:decoded2.products ,location:decoded2.location, status , customerID:decoded2.customerID, phoneNumber:decoded2.phoneNumber, address:decoded2.address, deliveryCharge:decoded2.deliveryCharge}, {
                                           new: true,

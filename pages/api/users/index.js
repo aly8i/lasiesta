@@ -18,7 +18,7 @@ export default AuthorizedGet( async function handler(req, res) {
     }
   }
   if (method === "POST") {
-    verify(req.body.jwt,process.env.NEXT_PUBLIC_JWT_SECRET,async function(err,decoded){
+    await verify(req.body.jwt,process.env.NEXT_PUBLIC_JWT_SECRET,async function(err,decoded){
       if(!err && decoded) {
     try {
       const user = await User.create({      
@@ -28,7 +28,7 @@ export default AuthorizedGet( async function handler(req, res) {
         img:decoded.img
       });
       const access = await generateAccessToken(user);
-      setCookie('accessToken',access,{req,res,maxAge: process.env.NEXT_PUBLIC_COOKIE_AGE,path:'/',httpOnly:true,secure:true,sameSite:"strict"});
+      await setCookie('accessToken',access,{req,res,maxAge: process.env.NEXT_PUBLIC_COOKIE_AGE,path:'/',httpOnly:true,secure:true,sameSite:"strict"});
       res.status(201).json(user);
     } catch (err) {
       res.status(500).json(err);

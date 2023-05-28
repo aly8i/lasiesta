@@ -11,11 +11,11 @@ const handler = async(req, res) => {
     try {
       try{
         user = await User.findOne({'phonenumber': phonenumber});
-        access = generateAccessToken(user);
+        access = await generateAccessToken(user);
       }catch(err){
         res.status(500).json(err);
       }
-      setCookie('accessToken',access,{req,res,maxAge: process.env.NEXT_PUBLIC_COOKIE_AGE,path:'/',httpOnly:true,secure:true,sameSite:"strict"});
+      await setCookie('accessToken',access,{req,res,maxAge: process.env.NEXT_PUBLIC_COOKIE_AGE,path:'/',httpOnly:true,secure:true,sameSite:"strict"});
     res.status(200).json(user);
     } catch (err) {
       res.status(700).json(err);
