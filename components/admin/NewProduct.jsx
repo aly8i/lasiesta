@@ -200,8 +200,8 @@ const NewProduct = ({token}) => {
                       color="error"
                     >
                       {
-                        categories.map((cat,i)=>(
-                            <MenuItem key={i} color="error" value={cat}>{cat}</MenuItem>
+                        categories.map((cat)=>(
+                            <MenuItem color="error" value={cat}>{cat}</MenuItem>
                           )
                         )
                       }
