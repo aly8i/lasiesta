@@ -25,7 +25,7 @@ export const getServerSideProps = async (context) => {
   });
   server.interceptors.request.use(
     async function (config) {
-      accessToken =  context.req.cookies.accessToken || Cookies.get("accessToken");
+      accessToken =  context.req.cookies.accessToken;
       if (accessToken) {
         config.headers.authorization = accessToken;
       }
