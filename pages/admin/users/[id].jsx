@@ -79,7 +79,6 @@ export const getServerSideProps = async (context) => {
       res3=res33
     }catch(err){
     if(err.response.status>=300){
-        console.log("what the")
         return {
           redirect: {
             permanent: false,
