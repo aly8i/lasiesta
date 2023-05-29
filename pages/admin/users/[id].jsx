@@ -54,7 +54,7 @@ export const getServerSideProps = async (context) => {
     const payload2 = {customerID : res1.data._id};
     
     try{
-      const res22 = await server.post("api/orders/find/",payload2);
+      const res22 = await server.post(`api/orders/find`,payload2);
       res2=res22
     }catch(err){
     if(err.response.status>=300){
