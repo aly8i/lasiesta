@@ -9,14 +9,16 @@ const AuthorizedOrder = (fn) => async (req,res) => {
     return await fn(req, res)
   }else{
     await dbConnect();
-    verify(token,process.env.NEXT_PUBLIC_JWT_SECRET,async function(err,decoded){
+    await verify(token,process.env.NEXT_PUBLIC_JWT_SECRET,async function(err,decoded){
       if(!err && decoded) {
         if(decoded.role=='admin'){
           return await fn(req, res)
+        }else{
+          return res.status(500).json({message: 'Sorry you are not authorized'})
         }
-        return res.status(500).json({message: 'Sorry you are not authorized'})
+      }else{
+        res.status(600).json({message: "Sorry you are not authenticated"})
       }
-      res.status(600).json({message: "Sorry you are not authenticated"})
     })
   }
 };

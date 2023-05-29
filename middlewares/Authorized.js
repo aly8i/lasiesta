@@ -9,10 +9,12 @@ const Authorized = (fn) => async (req,res) => {
       if(decoded.sub==id || decoded.role=='admin'){
         req.decoded=decoded
         return await fn(req, res)
+      }else{
+        return res.status(500).json({message: 'Sorry you are not authorized'})
       }
-      return res.status(500).json({message: 'Sorry you are not authorized'})
+    }else{
+      res.status(600).json({message: `Sorry you are not authenticated`,error:err, token: `${token}`})
     }
-    res.status(600).json({message: `Sorry you are not authenticated`,error:err, token: `${token}`})
   })
 };
 export default Authorized;
