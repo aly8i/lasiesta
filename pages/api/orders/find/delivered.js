@@ -21,10 +21,12 @@ export default async function handler(req, res) {
             } catch (err) {
               return res.status(500).json(err);
             }
+          }else{
+            return res.status(500).json({message: 'Sorry you are not authorized'})
           }
-          return res.status(500).json({message: 'Sorry you are not authorized'})
+        }else{
+          return res.status(600).json({message: "Sorry you are not authenticated"})
         }
-      return res.status(600).json({message: "Sorry you are not authenticated"})
     })
   }
 }
