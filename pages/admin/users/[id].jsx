@@ -44,7 +44,7 @@ export const getServerSideProps = async (context) => {
       return {
         redirect: {
           permanent: false,
-          destination: "/"
+          destination: "/333"
         },
       };
     }
@@ -61,7 +61,7 @@ export const getServerSideProps = async (context) => {
         return {
           redirect: {
             permanent: false,
-            destination: "/"
+            destination: "/123"
           },
         };
       }
@@ -82,7 +82,7 @@ export const getServerSideProps = async (context) => {
         return {
           redirect: {
             permanent: false,
-            destination: "/"
+            destination: "/222"
           },
         };
       }
