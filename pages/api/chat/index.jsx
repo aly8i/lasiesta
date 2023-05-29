@@ -1,5 +1,6 @@
 import dbConnect from "../../../util/mongo";
 import Chat from "../../../models/Chat";
+import User from "../../../models/User";
 
 export default async function handler (req, res){
   const {

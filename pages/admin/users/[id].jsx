@@ -44,7 +44,7 @@ export const getServerSideProps = async (context) => {
       return {
         redirect: {
           permanent: false,
-          destination: "/333"
+          destination: "/"
         },
       };
     }
@@ -54,14 +54,14 @@ export const getServerSideProps = async (context) => {
     const payload2 = {customerID : res1.data._id};
     
     try{
-      const res22 = await server.post(`api/orders/find`,payload2);
+      const res22 = await server.post("api/orders/find",payload2);
       res2=res22
     }catch(err){
-    if(err.response.status>=300){
+      if(err.response.status>=300){
         return {
           redirect: {
             permanent: false,
-            destination: `${err.response.status}/123`
+            destination: "/"
           },
         };
       }
@@ -82,7 +82,7 @@ export const getServerSideProps = async (context) => {
         return {
           redirect: {
             permanent: false,
-            destination: "/222"
+            destination: "/"
           },
         };
       }

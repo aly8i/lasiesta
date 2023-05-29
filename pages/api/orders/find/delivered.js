@@ -1,5 +1,6 @@
 import dbConnect from "../../../../util/mongo";
 import Order from "../../../../models/Order";
+import Product from "../../../../models/Product";
 import { getCookie } from 'cookies-next';
 import { verify } from "jsonwebtoken";
 export default async function handler(req, res) {
