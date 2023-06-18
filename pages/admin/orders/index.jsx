@@ -12,7 +12,7 @@ const server = axios.create({
   headers: {'Content-Type':'application/json'},
   withCredentials: true
 });
-const page = ({orders=[],deliverys,token}) => {
+const Page = ({orders=[],deliverys,token}) => {
   const [ordersList,setOrdersList] = useState([...orders]);
   const effect = useRef(0);
   const ordersRef = collection(db,"orders");
@@ -49,7 +49,7 @@ const page = ({orders=[],deliverys,token}) => {
     );
 };
 
-export default page;
+export default Page;
 
 export const getServerSideProps = async (context) => {
   var accessToken = context.req.cookies.accessToken||"";
