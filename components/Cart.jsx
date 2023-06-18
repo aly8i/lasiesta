@@ -19,6 +19,7 @@ import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
 import {sign,verify} from 'jsonwebtoken';
 import { setCookie,getCookie,deleteCookie } from "cookies-next";
 import { useEffect } from "react";
+import { ordersTrigger } from "../functions/triggers";
 const round = (val) =>{
   return parseFloat((val).toFixed(2))
 }
@@ -56,6 +57,7 @@ const Cart=({mapLocation,deliveryChargePerKm})=> {
     try {
       const res = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/api/orders`, {jwt});
       if (res.status === 201) {
+        ordersTrigger();
         deleteCookie('cart');
         dispatch(resetCart());
         router.push(`/orders/${res.data._id}`);

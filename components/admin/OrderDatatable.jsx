@@ -8,6 +8,7 @@ import Search from "../Search";
 import { useRouter } from 'next/router';
 import {CopyToClipboard} from 'react-copy-to-clipboard';
 import DeliveryDialog from "./DeliveryDialog";
+import { ordersTrigger } from "../../functions/triggers";
 const OrderDatatable = ({orders,deliverys,token}) => {
   const [originalOrders,setOriginalOrders] = useState(orders);
   const [rows, setRows] = useState(originalOrders);
@@ -58,9 +59,6 @@ const OrderDatatable = ({orders,deliverys,token}) => {
     setRows(orders);
   },[orders]);
 
-  const refreshData = () => {
-    router.replace(router.asPath);
-  }
 
   const requestSearch = (searchedVal) => {
     if(searchedVal!=""){
@@ -79,14 +77,16 @@ const OrderDatatable = ({orders,deliverys,token}) => {
 
   const handleDelete = async (id) => {
     const res = await server.delete("api/orders/" + id);
-    refreshData();
+    // refreshData();
+    ordersTrigger();
   };
   const editOrderStatus = async (id,curr)=>{
     try {
         const res = await server.put("api/orders/" + id, {
           status: curr + 1,
         });
-        refreshData();
+        // refreshData();
+        ordersTrigger();
       } catch (err) {
         console.log(err);
       }

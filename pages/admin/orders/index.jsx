@@ -1,12 +1,51 @@
 import dynamic from 'next/dynamic';
 import axios from "axios";
+import {db} from "../../../Firebase"
+import { collection,onSnapshot,query,where } from 'firebase/firestore';
+import { useState,useEffect, useRef } from 'react';
 const OrderList = dynamic(
   () => import("../../../components/admin/OrderList"),
   {ssr: false}
 )
-const page = ({orders,deliverys,token}) => {
+const server = axios.create({
+  baseURL: `${process.env.NEXT_PUBLIC_BASE_URL}/`,
+  headers: {'Content-Type':'application/json'},
+  withCredentials: true
+});
+const page = ({orders=[],deliverys,token}) => {
+  const [ordersList,setOrdersList] = useState([...orders]);
+  const effect = useRef(0);
+  const ordersRef = collection(db,"orders");
+  useEffect(async () => {
+    const queryOrders = query(ordersRef,where("count",">",-1));
+    onSnapshot(queryOrders,async (snapshot)=>{
+      if(effect.current!=0){
+
+        server.interceptors.request.use(
+          async function (config) {
+            if (token) {
+              config.headers.authorization = token;
+            }
+            return config;
+          },
+          async function (error) {
+            return Promise.reject(error);
+          },
+        );
+        await server.get("api/orders/find/all").then((res)=>{
+          setOrdersList(res.data.reverse());
+        });
+
+      }
+
+        
+      effect.current = effect.current + 1;
+    })
+
+  }, []);
+
   return (
-      <OrderList orders={orders} deliverys={deliverys} token={token}/>
+      <OrderList orders={ordersList} deliverys={deliverys} token={token}/>
     );
 };
 
@@ -16,11 +55,7 @@ export const getServerSideProps = async (context) => {
   var accessToken = context.req.cookies.accessToken||"";
   var res1=[];
   var res2=[];
-  const server = axios.create({
-    baseURL: `${process.env.NEXT_PUBLIC_BASE_URL}/`,
-    headers: {'Content-Type':'application/json'},
-    withCredentials: true
-  });
+
   server.interceptors.request.use(
     async function (config) {
       if (accessToken) {

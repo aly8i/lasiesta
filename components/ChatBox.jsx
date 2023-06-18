@@ -5,17 +5,22 @@ import { useState, useEffect,useRef } from 'react';
 import { useSelector } from "react-redux";
 import axios from 'axios';
 import Progress from './Progress';
+import { messagesTrigger } from '../functions/triggers';
+import { collection,onSnapshot,query,where } from 'firebase/firestore';
+import {db} from "../Firebase"
 const ChatBox = () => {
     const [message,setMessage] = useState("");
     const [messages,setMessages] = useState([]);
     const [count, setCount] = useState(0);
+    const messagesRef = collection(db,"messages");
+    const queryMessages = query(messagesRef,where("count",">",-1));
     const timerRef = useRef();
     const user = useSelector((state) => state.user);
     const lastDiv = useRef(null);
     const [loaded,setLoaded] = useState(false);
 
     useEffect(()=>{
-        if(messages.length==0&&loaded)
+        if(messages.length==0&&!loaded)
             return;
             lastDiv.current?.parentElement?.scrollTo({ top: lastDiv.current?.offsetTop,
                 left: 0,
@@ -23,24 +28,21 @@ const ChatBox = () => {
             });
             setLoaded(true);
       },[messages,loaded])
-
+      const refreshChat = async() => {
+        if(user.id){
+            const res = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/chat/${user.id}`);
+                await (async()=>{
+                    setMessages([...res.data.messages]);
+                })().then(()=>{
+                    lastDiv.current?.scrollIntoView({  behavior: "smooth" });
+                });
+        }
+      }
     useEffect(() => {
-        timerRef.current = setTimeout(async() => {
-            if(user.id){
-                const res = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/chat/${user.id}`);
-                if(messages.length!=res.data.messages.length){
-                    await (async()=>{
-                        setMessages(res.data.messages);
-                    })().then(()=>{
-                        lastDiv.current?.scrollIntoView({  behavior: "smooth" });
-                    });
-                }
-            }
-          setCount(count => count + 1); 
-        }, 1000);
-        
-        return () => clearTimeout(timerRef.current);
-      }, [count]);
+        onSnapshot(queryMessages,(snapshot)=>{
+            refreshChat();
+        })   
+      }, []);
     const getDate = () =>{
         const date = new Date;
         const day = date.getDate();
@@ -80,12 +82,13 @@ const ChatBox = () => {
             console.log("failed to send");
         }
         setMessage('');
+        messagesTrigger();
       }
   return (
     <div className={styles.chatContainer}>
         <div className={styles.messages}>
         {
-            count==0?
+            loaded==false?
             <div className={styles.progressContainer}>
                 <Progress/>
             </div>:
